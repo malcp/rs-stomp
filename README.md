@@ -1,2 +1,3 @@
-# rs-stomp
+# mp_stomp
+
 STOMP crate for rust
