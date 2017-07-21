@@ -1,5 +1,5 @@
 [package]
-name = "stomp"
+name = "mp_stomp"
 version = "0.1.0"
 authors = ["Marc Alcalà Prieto <marc.alcala@gmail.com>"]
 
