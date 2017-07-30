@@ -1,7 +1,6 @@
 use std::net::{TcpStream, Shutdown};
 use std::io::{Error, Read, Write};
 
-use frames::FrmConnect;
 use frames::Frame;
 
 #[derive(Debug)]
@@ -57,7 +56,7 @@ impl ConnectionUp {
     }
 
     pub fn connect(&mut self) {
-        let frame = FrmConnect::new_connect();
+        let frame = Frame::new_connect();
         self.write_frame(frame);
         self.buffer = self.read_frame();
     }

@@ -1,11 +1,12 @@
 #[cfg(test)]
 mod tests {
-    use mp_stomp::frames::FrmConnect;
+    use mp_stomp::frames::Frame;
+    use mp_stomp::client::ConnectionDown;
 
     #[test]
     fn can_create_frame() {
-        let frame = FrmConnect::new();
-        assert!("SEND" == frame.frame_type);
+        let frame = Frame::new_connect();
+        assert!("CONNECT" == frame.get_frame_type());
     }
 
     #[test]

@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["Marc Alcalà Prieto <marc.alcala@gmail.com>"]
 
 [dependencies]
+
+[[test]]
+name = "test"
+path = "test/mod.rs"

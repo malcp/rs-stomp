@@ -21,8 +21,8 @@ impl Frame {
     pub fn set_frame_type(&self, frame_type: &'static str) -> Frame {
         Frame {
             frame_type: frame_type,
-            headers: self.headers,
-            body: self.body,
+            headers: self.headers.clone(),
+            body: self.body.clone(),
         }
     }
 
@@ -34,7 +34,7 @@ impl Frame {
         Frame {
             frame_type: self.frame_type,
             headers: headers,
-            body: self.body,
+            body: self.body.clone(),
         }
     }
 
@@ -49,10 +49,21 @@ impl Frame {
     pub fn as_string(&self) -> String {
         // TODO: do actual implementation
         let mut frame = String::new();
-        writeln!(&mut frame, "{frame_type}", frame_type = self.frame_type);
+        writeln!(&mut frame,
+                 "{frame_type}",
+                 frame_type = self.get_frame_type());
         writeln!(&mut frame, "{}", "accept-version:1.2");
         writeln!(&mut frame, "{}", "");
         writeln!(&mut frame, "{body}\0", body = "");
         frame
+    }
+
+    pub fn new_connect() -> Frame {
+        // debug!("FrmConnect");
+        Frame::new()
+            .set_frame_type("CONNECT")
+            .set_headers(HeaderItems::new()
+                             .add_accept_version_default()
+                             .add_host("localhost"))
     }
 }
