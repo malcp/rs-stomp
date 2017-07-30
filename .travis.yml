@@ -6,3 +6,9 @@ rust:
 matrix:
   allow_failures:
     - rust: nightly
+services:
+  - rabbitmq
+install:
+  - sudo rabbitmq-plugins enable rabbitmq_management
+  - sudo rabbitmq-plugins enable rabbitmq_stomp
+  - sudo service rabbitmq-server restart
