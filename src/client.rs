@@ -34,7 +34,7 @@ pub struct ConnectionUp {
 impl ConnectionUp {
     pub fn shutdown(self) -> Result<ConnectionDown, Error> {
         match self.tcp_stream.shutdown(Shutdown::Both) {
-            Ok(c) => Ok(ConnectionDown::new()),
+            Ok(_) => Ok(ConnectionDown::new()),
             Err(e) => Err(e),
         }
     }
@@ -47,7 +47,7 @@ impl ConnectionUp {
 
     fn read_frame(&mut self) -> Vec<u8> {
         let mut inc_frame = [0; 10000];
-        let num_bytes = self.tcp_stream.read(&mut inc_frame).unwrap();
+        let _ = self.tcp_stream.read(&mut inc_frame).unwrap();
         for s in inc_frame.into_iter() {
             print!("{}", s.to_owned() as char);
         }
