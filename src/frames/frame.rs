@@ -51,19 +51,20 @@ impl Frame {
         let mut frame = String::new();
         writeln!(&mut frame,
                  "{frame_type}",
-                 frame_type = self.get_frame_type()).unwrap();
-        writeln!(&mut frame, "{}", "accept-version:1.2").unwrap();
+                 frame_type = self.get_frame_type())
+                .unwrap();
+        write!(&mut frame, "{}", self.headers).unwrap();
         writeln!(&mut frame, "{}", "").unwrap();
         writeln!(&mut frame, "{body}\0", body = "").unwrap();
         frame
     }
 
-    pub fn new_connect() -> Frame {
-        // debug!("FrmConnect");
+    pub fn new_connect(user: &'static str, passwd: &'static str) -> Frame {
         Frame::new()
             .set_frame_type("CONNECT")
             .set_headers(HeaderItems::new()
                              .add_accept_version_default()
-                             .add_host("localhost"))
+                             .add_host("/")
+                             .add_login(user, passwd))
     }
 }

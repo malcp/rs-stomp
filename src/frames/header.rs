@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter, Result};
+
 #[derive(Debug)]
 pub struct HeaderItems {
     headers: Vec<String>,
@@ -6,6 +8,16 @@ pub struct HeaderItems {
 impl Clone for HeaderItems {
     fn clone(&self) -> HeaderItems {
         HeaderItems { headers: self.headers.clone() }
+    }
+}
+
+impl Display for HeaderItems {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        for header in self.headers.clone() {
+            writeln!(f, "{}", header)?;
+        }
+
+        Ok(())
     }
 }
 
@@ -24,6 +36,11 @@ impl HeaderItems {
 
     pub fn add_host(self, host: &'static str) -> HeaderItems {
         self.add_header("host", host)
+    }
+
+    pub fn add_login(self, user: &'static str, passwd: &'static str) -> HeaderItems {
+        self.add_header("login", user)
+            .add_header("passcode", passwd)
     }
 
     fn add_header(mut self, key: &'static str, value: &'static str) -> HeaderItems {

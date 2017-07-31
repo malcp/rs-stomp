@@ -55,8 +55,8 @@ impl ConnectionUp {
         inc_frame.to_vec()
     }
 
-    pub fn connect(&mut self) {
-        let frame = Frame::new_connect();
+    pub fn connect(&mut self, user: &'static str, passwd: &'static str) {
+        let frame = Frame::new_connect(user, passwd);
         self.write_frame(frame);
         self.buffer = self.read_frame();
     }
