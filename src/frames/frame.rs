@@ -51,10 +51,10 @@ impl Frame {
         let mut frame = String::new();
         writeln!(&mut frame,
                  "{frame_type}",
-                 frame_type = self.get_frame_type());
-        writeln!(&mut frame, "{}", "accept-version:1.2");
-        writeln!(&mut frame, "{}", "");
-        writeln!(&mut frame, "{body}\0", body = "");
+                 frame_type = self.get_frame_type()).unwrap();
+        writeln!(&mut frame, "{}", "accept-version:1.2").unwrap();
+        writeln!(&mut frame, "{}", "").unwrap();
+        writeln!(&mut frame, "{body}\0", body = "").unwrap();
         frame
     }
 
